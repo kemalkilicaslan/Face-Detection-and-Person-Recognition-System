@@ -1,0 +1,16 @@
+services:
+  face-detection:
+    build: .
+    image: face-detection-person-recognition:latest
+    container_name: face-detection-person-recognition
+    volumes:
+      - ./:/app                  # input media, models and outputs shared with host
+      - torch-cache:/root/.cache # cache downloaded YOLO / torch weights between runs
+    # cv2.imshow window only works on Linux + X11. Leave disabled on macOS/Windows;
+    # file-based scripts still write their output to the project folder.
+    # environment:
+    #   - DISPLAY=${DISPLAY}
+    # Add "- /tmp/.X11-unix:/tmp/.X11-unix" to the volumes above to enable X11.
+
+volumes:
+  torch-cache:
